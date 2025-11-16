@@ -564,22 +564,26 @@ def page_search():
     with tab_hotel:
         st.subheader("Пошук по готелях")
         keyword = st.text_input("Ключове слово (назва, місто, адреса, опис)", key="hotel_search")
+        
         if st.button("Шукати готелі"):
-           result = hotel_service.search_hotels(keyword)
-           if result:
-               df = pd.DataFrame(
-                [
-                {
-                    "ID": h.id,
-                    "Назва": h.name,
-                    "Місто": h.city,
-                    "Адреса": h.address,
-                    "Опис": h.description,
-                } for h in result]
-               )
-             st.dataframe(df, use_container_width=True, hide_index=True)
+            result = hotel_service.search_hotels(keyword)
+            if result:
+                df = pd.DataFrame(
+                    [
+                        {
+                            "ID": h.id,
+                            "Назва": h.name,
+                            "Місто": h.city,
+                            "Адреса": h.address,
+                            "Опис": h.description,
+                        }
+                        for h in result
+                    ]
+                )
+                st.dataframe(df, use_container_width=True, hide_index=True)
             else:
-                 st.info("Нічого не знайдено.")
+                st.info("Нічого не знайдено.")
+
  
 
     with tab_client:
