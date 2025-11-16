@@ -7,7 +7,7 @@ if str(ROOT_DIR) not in sys.path:
 
 import streamlit as st
 from datetime import date
-
+import pandas as pd
 from dal import FileStorage, JsonRepository
 from bll.models import Hotel, Room, Client, Booking, BookingStatus
 from bll.services import HotelService, ClientService, BookingService
@@ -167,15 +167,17 @@ def page_hotels():
         if not hotels:
             st.info("Ще немає жодного готелю.")
         else:
-            st.table(
-                [{
+            df = pd.DataFrame([
+                 {
                     "ID": h.id,
                     "Назва": h.name,
                     "Місто": h.city,
                     "Адреса": h.address,
-                    "Опис": h.description
-                } for h in hotels]
-            )
+                    "Опис": h.description,
+               } for h in hotels
+     
+            ]) 
+            st.dataframe(df, use_container_width=True, hide_index=True)
 
             # Видалення
             hotel_map = {f"{h.name} ({h.city}) [ID={h.id}]": h for h in hotels}
