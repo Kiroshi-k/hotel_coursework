@@ -154,7 +154,8 @@ def page_hotels():
             try:
                 hotel_service.add_hotel(name, city, address, description)
                 st.success("Готель додано.")
-                st.experimental_rerun()
+                st.rerun()
+
             except (ValidationError, Exception) as e:
                 show_error(e)
 
@@ -187,7 +188,8 @@ def page_hotels():
                     try:
                         hotel_service.delete_hotel(hotel_map[selected].id)
                         st.success("Готель видалено.")
-                        st.experimental_rerun()
+                        st.rerun()
+
                     except NotFoundError as e:
                         show_error(e)
 
@@ -247,7 +249,7 @@ def page_hotels():
                     all_rooms.append(room)
                     room_repo.save_all(all_rooms)
                     st.success("Кімнату додано.")
-                    st.experimental_rerun()
+                    st.rerun()
             except Exception as e:
                 show_error(e)
 
@@ -271,7 +273,7 @@ def page_clients():
             try:
                 client_service.add_client(first_name, last_name, phone, email)
                 st.success("Клієнта додано.")
-                st.experimental_rerun()
+                st.rerun()
             except ValidationError as e:
                 show_error(e)
 
@@ -297,11 +299,11 @@ def page_clients():
             with c1:
                 if st.button("За ім'ям"):
                     client_service.sort_clients_by_first_name()
-                    st.experimental_rerun()
+                    st.rerun()
             with c2:
                 if st.button("За прізвищем"):
                     client_service.sort_clients_by_last_name()
-                    st.experimental_rerun()
+                    st.rerun()
 
     st.markdown("---")
     st.subheader("Редагування / видалення клієнта")
@@ -331,7 +333,7 @@ def page_clients():
                     email=new_email,
                 )
                 st.success("Дані клієнта оновлено.")
-                st.experimental_rerun()
+                st.rerun()
             except ValidationError as e:
                 show_error(e)
 
@@ -340,7 +342,7 @@ def page_clients():
             try:
                 client_service.delete_client(client.id)
                 st.success("Клієнта видалено.")
-                st.experimental_rerun()
+                st.rerun()
             except NotFoundError as e:
                 show_error(e)
 
@@ -402,7 +404,7 @@ def page_bookings():
                     text=request_text,
                 )
                 st.success("Заявку створено.")
-                st.experimental_rerun()
+                st.rerun()
             except (ValidationError, NotFoundError) as e:
                 show_error(e)
 
@@ -460,7 +462,7 @@ def page_bookings():
                     elif action == "Порахувати вартість":
                         price = booking_service.calculate_booking_price(selected_id)
                         st.info(f"Вартість бронювання: {price:.2f}")
-                    st.experimental_rerun()
+                    st.rerun()
                 except (ValidationError, NotFoundError) as e:
                     show_error(e)
 
