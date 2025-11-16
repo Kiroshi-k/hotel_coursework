@@ -7,9 +7,7 @@ from .in_memory_repository import InMemoryRepository
 
 
 class ClientServiceTests(unittest.TestCase):
-    """
-    Тести для ClientService у стилі Triple A (Arrange–Act–Assert).
-    """
+   
 
     def setUp(self):
         # Arrange: початкові дані

@@ -8,15 +8,7 @@ from .in_memory_repository import InMemoryRepository
 
 
 class BookingServiceTests(unittest.TestCase):
-    """
-    Базові тести для BookingService.
-    Покриваємо основні сценарії:
-    - створення заявки
-    - помилкові дати
-    - підтвердження / скасування
-    - розрахунок вартості
-    - вибірки по періоду, місця, клієнти
-    """
+  
 
     def setUp(self):
         # Arrange: створюємо in-memory репозиторії з базовими даними

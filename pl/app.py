@@ -233,12 +233,12 @@ def page_hotels():
 
         if st.button("Додати кімнату"):
             try:
-                # простий валідейшн на рівні PL
+                # простий валідейшн 
                 if not number.strip():
                     st.warning("Введіть номер кімнати.")
                 else:
                     # створюємо кімнату через room_repo напряму
-                    # (можна було б мати окремий RoomService, але для КР вистачить так)
+                
                     all_rooms = room_repo.get_all()
                     new_id = max([r.id for r in all_rooms], default=0) + 1
                     room = Room(
@@ -415,7 +415,7 @@ def page_bookings():
         st.subheader("Список заявок та бронювань для готелю")
 
         all_bookings = [
-            b for b in booking_service._get_all()  # використали внутрішній метод, для спрощення
+            b for b in booking_service._get_all()  # внутрішній метод, для спрощення
             if b.hotel_id == hotel.id
         ]
         if not all_bookings:
@@ -564,7 +564,7 @@ def page_search():
     with tab_hotel:
         st.subheader("Пошук по готелях")
         keyword = st.text_input("Ключове слово (назва, місто, адреса, опис)", key="hotel_search")
-        
+
         if st.button("Шукати готелі"):
             result = hotel_service.search_hotels(keyword)
             if result:

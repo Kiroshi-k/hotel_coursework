@@ -7,9 +7,7 @@ from .in_memory_repository import InMemoryRepository
 
 
 class HotelServiceTests(unittest.TestCase):
-    """
-    Базові тести для HotelService (покриваємо частину функціоналу).
-    """
+    
 
     def setUp(self):
         # Arrange

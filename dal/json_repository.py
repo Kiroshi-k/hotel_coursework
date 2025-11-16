@@ -9,18 +9,7 @@ T = TypeVar("T")
 
 
 class JsonRepository(IRepository[T], Generic[T]):
-    """
-    Універсальний репозиторій для зберігання об'єктів у JSON-файлах.
-
-    Працює через:
-    - FileStorage (читає/пише список dict'ів)
-    - factory: dict -> об'єкт (T)
-    - to_dict: об'єкт (T) -> dict
-
-    Так ми маємо:
-    - інкапсуляцію роботи з файлами у DAL
-    - поліморфізм (JsonRepository[T] реалізує IRepository[T])
-    """
+   
 
     def __init__(
         self,

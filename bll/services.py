@@ -12,33 +12,26 @@ T = TypeVar("T")
 
 
 class IRepository(ABC, Generic[T]):
-    """
-    Абстрактний репозиторій для роботи з колекцією об'єктів.
-    Реальні реалізації (JSON, БД тощо) будуть у шарі DAL.
-    """
+   
 
     @abstractmethod
     def get_all(self) -> List[T]:
-        """Повертає всі об'єкти з сховища."""
+        
         raise NotImplementedError
 
     @abstractmethod
     def get_by_id(self, id_: int) -> Optional[T]:
-        """Повертає об'єкт за ID або None, якщо не знайдено."""
+        
         raise NotImplementedError
 
     @abstractmethod
     def save_all(self, items: List[T]) -> None:
-        """Зберігає всю колекцію об'єктів у сховище."""
+       
         raise NotImplementedError
 
 
 class BaseService(Generic[T], ABC):
-    """
-    Базовий сервіс з типізованим репозиторієм.
-    Забезпечує спільну логіку генерації ID та пошуку по ID.
-    Це наш приклад успадкування + інкапсуляції.
-    """
+   
 
     def __init__(self, repo: IRepository[T]):
         self._repo = repo
@@ -63,15 +56,7 @@ class BaseService(Generic[T], ABC):
 
 
 class HotelService(BaseService[Hotel]):
-    """
-    Сервіс для роботи з готелями.
-    Закриває вимоги:
-    - 1.1. додавання готелю
-    - 1.2. видалення готелю
-    - 1.3. перегляд конкретного готелю
-    - 1.4. перегляд усіх готелів
-    - 4.1. пошук по ключовому слову серед готелів
-    """
+   
 
     def add_hotel(self, name: str, city: str, address: str, description: str) -> Hotel:
         if not name.strip():
@@ -109,9 +94,7 @@ class HotelService(BaseService[Hotel]):
         return self._get_all()
 
     def search_hotels(self, keyword: str) -> List[Hotel]:
-        """
-        Пошук по ключовому слову серед назви, міста, адреси та опису.
-        """
+       
         key = keyword.strip().lower()
         if not key:
             return self._get_all()
@@ -125,18 +108,7 @@ class HotelService(BaseService[Hotel]):
 
 
 class ClientService(BaseService[Client]):
-    """
-    Сервіс для роботи з клієнтами.
-    Закриває вимоги:
-    - 2.1. додавання клієнтів
-    - 2.2. видалення клієнтів
-    - 2.3. змінення даних про клієнтів
-    - 2.4. перегляд даних про конкретного клієнта
-    - 2.5. перегляд всіх клієнтів
-    - 2.6. сортування за ім'ям
-    - 2.7. сортування за прізвищем
-    - 4.2. пошук по ключовому слову серед клієнтів
-    """
+    
 
     def add_client(self, first_name: str, last_name: str, phone: str, email: str) -> Client:
         first_name = first_name.strip()
@@ -234,12 +206,7 @@ class ClientService(BaseService[Client]):
 
 
 class BookingService(BaseService[Booking]):
-    """
-    Сервіс для роботи із заявками та бронюваннями.
-    Закриває вимоги:
-    - 1.5–1.8 (операції із заявками)
-    - 3.1–3.7 (операції із замовленнями номерів)
-    """
+    
 
     def __init__(
         self,
@@ -309,7 +276,7 @@ class BookingService(BaseService[Booking]):
         room = self._ensure_room_exists(room_id)
         client = self._ensure_client_exists(client_id)
 
-        # Додатково можна перевірити, що room.hotel_id == hotel.id
+        # перевірка, що room.hotel_id == hotel.id
         if room.hotel_id != hotel.id:
             raise ValidationError("Кімната не належить вказаному готелю.")
 

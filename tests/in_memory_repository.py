@@ -6,10 +6,7 @@ T = TypeVar("T")
 
 
 class InMemoryRepository(IRepository[T], Generic[T]):
-    """
-    Проста in-memory реалізація IRepository для модульних тестів.
-    Ніяких файлів, усе в пам'яті.
-    """
+    
 
     def __init__(self, initial: Optional[List[T]] = None):
         self._items: List[T] = list(initial) if initial is not None else []

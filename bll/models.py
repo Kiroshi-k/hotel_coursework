@@ -7,12 +7,7 @@ from typing import Optional
 
 
 class BookingStatus(str, Enum):
-    """
-    Статус бронювання / заявки.
-    PENDING    – заявка, ще не підтверджена.
-    CONFIRMED  – підтверджене бронювання.
-    CANCELLED  – скасоване бронювання.
-    """
+    
     PENDING = "pending"
     CONFIRMED = "confirmed"
     CANCELLED = "cancelled"
@@ -20,11 +15,7 @@ class BookingStatus(str, Enum):
 
 @dataclass
 class Hotel:
-    """
-    Готель.
-    room'и зберігатимуться окремо (через Room і репозиторій),
-    тут мінімальна інформація про сам готель.
-    """
+    
     id: int                  # унікальний ідентифікатор
     name: str                # назва готелю
     city: str                # місто
@@ -34,10 +25,7 @@ class Hotel:
 
 @dataclass
 class Room:
-    """
-    Номер у готелі.
-    Один готель має багато кімнат.
-    """
+   
     id: int                  # унікальний ідентифікатор кімнати
     hotel_id: int            # ID готелю, якому належить кімната
     number: str              # "101", "203A" тощо
@@ -47,9 +35,7 @@ class Room:
 
 @dataclass
 class Client:
-    """
-    Клієнт, який може бронювати номери в готелі.
-    """
+   
     id: int
     first_name: str
     last_name: str
@@ -59,13 +45,7 @@ class Client:
 
 @dataclass
 class Booking:
-    """
-    Заявка / бронювання номера в готелі.
-    Використовуємо один клас для всього:
-    - заявка:  status = PENDING
-    - підтверджене бронювання: status = CONFIRMED
-    - скасоване бронювання:    status = CANCELLED
-    """
+   
     id: int
     hotel_id: int
     room_id: int
@@ -78,8 +58,5 @@ class Booking:
     request_text: str = ""   # текст заявки (побажання тощо)
 
     def duration_days(self) -> int:
-        """
-        Кількість діб проживання.
-        Використовуватиметься для розрахунку вартості.
-        """
+        
         return (self.check_out - self.check_in).days
