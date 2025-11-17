@@ -452,19 +452,23 @@ def page_bookings():
                     if action == "Підтвердити бронювання":
                         booking_service.confirm_booking(selected_id)
                         st.success("Бронювання підтверджено.")
+                        st.rerun()
                     elif action == "Скасувати бронювання":
                         booking_service.cancel_booking(selected_id)
                         st.success("Бронювання скасовано.")
+                        st.rerun()
                     elif action == "Змінити текст заявки":
                         booking_service.update_request_text(selected_id, new_text or "")
                         st.success("Текст заявки змінено.")
+                        st.rerun()
                     elif action == "Видалити замовлення":
                         booking_service.delete_request(selected_id)
                         st.success("Замовлення видалено.")
+                        st.rerun()
                     elif action == "Порахувати вартість":
                         price = booking_service.calculate_booking_price(selected_id)
                         st.info(f"Вартість бронювання: {price:.2f}")
-                    st.rerun()
+                    
                 except (ValidationError, NotFoundError) as e:
                     show_error(e)
 
